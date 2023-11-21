@@ -24,11 +24,16 @@ const App = defineComponent({
       };
     },
   watch: {
-    value(newValue, oldValue) {}
+    value() {
+      this.updateFunc()
+    },
+
   },
-    async updated() {
-      this.info = await fetchMeetupById(this.value);
+  methods: {
+    async updateFunc() {
+      this.info= await fetchMeetupById(this.value);
     }
+  }
   }
 )
 

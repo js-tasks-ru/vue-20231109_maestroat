@@ -42,10 +42,16 @@ const App = defineComponent({
         const searchFilter = (email) =>
           email.toLowerCase().includes(this.search.toLowerCase());
 
-        return this.emails.filter((email) => searchFilter(email));
+        const container = {};
+
+        this.emails.forEach((email) =>
+        {
+          container[email] = searchFilter(email);
+        })
+        return container
       }
     },
-    async mounted() {
+    mounted() {
       this.emails = emails;
     }
   }

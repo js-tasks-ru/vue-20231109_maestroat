@@ -3,7 +3,12 @@ import { defineComponent } from '../vendor/vue.esm-browser.js';
 
 export default defineComponent({
   name: 'MeetupAgendaItem',
-
+  props: {
+    agendaItem: {
+      type: Object,
+      required: true
+    }
+  },
   template: `
     <div class="agenda-item">
       <div class="agenda-item__col">
@@ -11,7 +16,7 @@ export default defineComponent({
       </div>
       <div class="agenda-item__col">00:00 - 00:00</div>
       <div class="agenda-item__col">
-        <h3 class="agenda-item__title">Title</h3>
+        <h3 class="agenda-item__title">{{ agendaItem?.title }}</h3>
         <p class="agenda-item__talk">
           <span>Talk Speaker</span>
           <span class="agenda-item__dot"></span>

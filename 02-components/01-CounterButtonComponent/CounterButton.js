@@ -11,13 +11,11 @@ export default defineComponent({
       default: 0
     },
   },
-  emits: {
-    'update:count': ['select'],
-  },
+  emits: ['update:count'],
 
   methods: {
     select(count) {
-      this.$emit('update:count', count += 1);
+      this.$emit('update:count', count + 1);
     },
   },
   template: `<button type="button" @click="select(count)" > {{ count }}</button>`,

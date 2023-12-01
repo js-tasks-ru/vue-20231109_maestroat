@@ -42,7 +42,7 @@ export default defineComponent({
   template: `
     <div class="page-meetup">
       <!-- meetup view -->
-      <MeetupView v-if="meetup && !error && meetupId === newMeetapId" :meetup = 'meetup'/>
+      <MeetupView v-if="meetup && !error && meetupId === newMeetapId" :meetup='meetup'/>
       <UiContainer v-else-if="!error">
         <UiAlert>Загрузка...</UiAlert>
       </UiContainer>

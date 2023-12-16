@@ -11,7 +11,6 @@ export default defineComponent({
       // agendaItemDefaultTitles
     }
   },
-
   props: {
     agendaItem: {
       type: Object,

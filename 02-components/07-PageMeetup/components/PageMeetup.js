@@ -24,7 +24,6 @@ export default defineComponent({
       newMeetapId: null
     }
   },
-
   watch: {
     meetupId: {
       immediate: true,
@@ -38,7 +37,6 @@ export default defineComponent({
       }
     }
   },
-
   template: `
     <div class="page-meetup">
       <!-- meetup view -->

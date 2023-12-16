@@ -1,18 +1,14 @@
 <template>
-  <div class="dropdown dropdown_opened">
-    <button type="button" class="dropdown__toggle dropdown__toggle_icon">
-      <UiIcon icon="tv" class="dropdown__icon" />
-      <span>Title</span>
+  <div class="dropdown" >
+    <button type="button" class="dropdown__toggle" :class="optionsIcon() && 'dropdown__toggle_icon'" @click="dropdownOpened ? dropdownOpened = false : dropdownOpened = true" >
+      <UiIcon :icon="modelValue ? dropdownIcon : 'tv'" class="dropdown__icon" />
+      <span>{{ modelText || title }}</span>
     </button>
 
-    <div class="dropdown__menu" role="listbox">
-      <button class="dropdown__item dropdown__item_icon" role="option" type="button">
-        <UiIcon icon="tv" class="dropdown__icon" />
-        Option 1
-      </button>
-      <button class="dropdown__item dropdown__item_icon" role="option" type="button">
-        <UiIcon icon="tv" class="dropdown__icon" />
-        Option 2
+    <div class="dropdown__menu" role="listbox" v-show="dropdownOpened" :class="dropdownOpened ? 'dropdown_opened' : ''">
+      <button class="dropdown__item" :class="optionsIcon() && 'dropdown__item_icon'" role="option" type="button" v-for="(el) in options" :key="el.value" @click="handler(el)">
+        <UiIcon :icon="el.icon" class="dropdown__icon" v-if="el.icon" />
+        <span>{{ el.text }}</span>
       </button>
     </div>
   </div>
@@ -23,8 +19,50 @@ import UiIcon from './UiIcon.vue';
 
 export default {
   name: 'UiDropdown',
-
   components: { UiIcon },
+  props: {
+    options: {
+      type: Array,
+      required: true
+    },
+    modelValue: {
+      type: String,
+    },
+    title: {
+      type: String,
+      required: true
+    },
+},
+  data() {
+    return {
+      dropdownOpened: false,
+      dropdownIcon: 'key',
+    }
+  },
+  emits: [
+    'update:modelValue'
+  ],
+  computed: {
+    modelText() {
+      for (let obj of this.options) {
+        if (obj.value === this.modelValue) {return obj.text}
+      }
+    return undefined
+    }
+  },
+  methods: {
+    handler(el) {
+      this.$emit('update:modelValue', el.value);
+      this.dropdownOpened = false;
+      this.dropdownIcon = el.icon;
+    },
+    optionsIcon() {
+      for (let obj of this.options) {
+        if (obj.icon) return true
+      }
+      return false
+    },
+  },
 };
 </script>
 

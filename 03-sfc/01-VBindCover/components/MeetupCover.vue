@@ -17,6 +17,11 @@ export default {
       default: ''
     }
   },
+  computed: {
+    backgroundImage() {
+      return this.image ? `url(${this.image})` : "var(--default-cover)"
+    }
+  },
 };
 </script>
 
@@ -27,7 +32,7 @@ export default {
   /*background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),*/
   /*  url('https://course-vue.javascript.ru/api/images/2');*/
   /* background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), var(--default-cover); */
-  background-image: v-bind("linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('\${image}') || var(--default-cover)");
+  background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), v-bind(backgroundImage);
   display: flex;
   flex-direction: column;
   align-items: center;

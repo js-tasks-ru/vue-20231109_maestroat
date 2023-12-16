@@ -1,24 +1,57 @@
-<template>
-  <div class="toasts">
-    <div class="toast toast_success">
-      <UiIcon class="toast__icon" icon="check-circle" />
-      <span>Success Toast Example</span>
-    </div>
 
-    <div class="toast toast_error">
-      <UiIcon class="toast__icon" icon="alert-circle" />
-      <span>Error Toast Example</span>
-    </div>
-  </div>
+<!--  <div class="toasts">-->
+<!--    <div class="toast toast_success">-->
+<!--      <UiIcon class="toast__icon" icon="check-circle" />-->
+<!--      <span>Success Toast Example</span>-->
+<!--    </div>-->
+
+<!--    <div class="toast toast_error">-->
+<!--      <UiIcon class="toast__icon" icon="alert-circle" />-->
+<!--      <span>Error Toast Example</span>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<template>
+    <ul class="toasts">
+    <li class="toast" v-for="(el, index) in arr" :key="arr[index]" :class="arr[index].toastClass">
+      <UiToast :toastEl="arr[index]" />
+    </li>
+    </ul>
 </template>
 
 <script>
-import UiIcon from './UiIcon.vue';
+import UiToast from './UiToast.vue';
 
 export default {
   name: 'TheToaster',
-
-  components: { UiIcon },
+  components: { UiToast },
+  data() {
+    return {
+      arr: [],
+    }
+  },
+  methods: {
+    error(message)  {
+      const toast = {
+        toastClass: 'toast_error',
+        toastMessage: message,
+        toastIcon:'alert-circle',
+        toastTime: true
+      }
+      this.arr.push(toast);
+      setTimeout(() => {this.arr.shift()}, 5000)
+    },
+    success(message)  {
+      const toast = {
+        toastClass: 'toast_success',
+        toastMessage: message,
+        toastIcon:'check-circle',
+        toastTime: true
+      }
+      this.arr.push(toast);
+      setTimeout(() => {this.arr.shift()}, 5000)
+    }
+  }
 };
 </script>
 
@@ -59,9 +92,9 @@ export default {
   margin-top: 20px;
 }
 
-.toast__icon {
-  margin-right: 12px;
-}
+/*.toast__icon {*/
+/*  margin-right: 12px;*/
+/*}*/
 
 .toast.toast_success {
   color: var(--green);

@@ -8,7 +8,6 @@ import MeetupInfo from '../../04-MeetupInfo/components/MeetupInfo.js';
 
 export default defineComponent({
   name: 'MeetupView',
-
   components: {
     UiAlert,
     UiContainer,

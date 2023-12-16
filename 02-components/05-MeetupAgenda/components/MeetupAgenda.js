@@ -3,6 +3,7 @@ import MeetupAgendaItem from './MeetupAgendaItem.js';
 
 export default defineComponent({
   name: 'MeetupAgenda',
+
   components: {
     MeetupAgendaItem,
   },

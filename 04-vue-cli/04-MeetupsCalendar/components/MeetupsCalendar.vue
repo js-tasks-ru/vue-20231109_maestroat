@@ -43,12 +43,12 @@ export default {
   data() {
     return {
       date: new Date(),
-      meetupsDay: [],
       newMonthDay: {}
     }
   },
   computed: {
     localDate() {
+      //делаю объект с датами текущего месяца в формате timestamp
       let arrDate = {};
       for (let i=1; i<=this.lastDateOfMonth(); i++) {
         let a = new Date(Date.UTC(this.date.getUTCFullYear(), this.date.getUTCMonth(), i,0,
@@ -56,6 +56,7 @@ export default {
         // let a = new Date(this.date.getFullYear(), this.date.getMonth(), i, 0, 0, 0).getTime() / 1000;
         arrDate[a] = i;
       }
+      //прохожусь циклом по meetups и заношу митапы текущего месяца в массив (в виде объектов с датой)
       let newMeetupsDay = [];
       for (let obj of this.meetups) {
         let d = new Date(obj.date).getDate();
@@ -63,14 +64,15 @@ export default {
         c =  new Date(c).getTime() / 1000;
         if (arrDate[c]) newMeetupsDay.push({d: d, obj: obj})
       }
+      //перевожу массив митапов текущего месяца в объект с массивами
       let objMeetupsDay = {};
       for (let el of newMeetupsDay) {
         if (!objMeetupsDay[el.d]) objMeetupsDay[el.d] = [el.obj]
         else objMeetupsDay[el.d].push(el.obj)
       }
-      let arr = new Array(32 - new Date(this.date.getFullYear(), this.date.getMonth(),32).getDate());
+      //проверяю по каждому дню месяца наличие митапов и вывожу в окончательный объект
       this.newMonthDay = {};
-      for (let day=1; day<=arr.length; day++) {
+      for (let day=1; day<=this.lastDateOfMonth(); day++) {
         if (objMeetupsDay[day]) this.newMonthDay[day] = objMeetupsDay[day]
         else this.newMonthDay[day] = null
       }

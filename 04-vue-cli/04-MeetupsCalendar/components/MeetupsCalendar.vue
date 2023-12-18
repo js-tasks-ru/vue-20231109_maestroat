@@ -56,19 +56,15 @@ export default {
         // let a = new Date(this.date.getFullYear(), this.date.getMonth(), i, 0, 0, 0).getTime() / 1000;
         arrDate[a] = i;
       }
-      //прохожусь циклом по meetups и заношу митапы текущего месяца в массив (в виде объектов с датой)
-      let newMeetupsDay = [];
+      //прохожусь циклом по meetups и заношу митапы текущего месяца в объект с массивами
+      let objMeetupsDay = {};
       for (let obj of this.meetups) {
         let d = new Date(obj.date).getDate();
         let c = new Date(obj.date).setUTCHours(0, 0, 0);
         c =  new Date(c).getTime() / 1000;
-        if (arrDate[c]) newMeetupsDay.push({d: d, obj: obj})
-      }
-      //перевожу массив митапов текущего месяца в объект с массивами
-      let objMeetupsDay = {};
-      for (let el of newMeetupsDay) {
-        if (!objMeetupsDay[el.d]) objMeetupsDay[el.d] = [el.obj]
-        else objMeetupsDay[el.d].push(el.obj)
+        if (arrDate[c])
+         if (!objMeetupsDay[d]) objMeetupsDay[d] = [obj]
+           else objMeetupsDay[d].push(obj)
       }
       //проверяю по каждому дню месяца наличие митапов и вывожу в окончательный объект
       this.newMonthDay = {};

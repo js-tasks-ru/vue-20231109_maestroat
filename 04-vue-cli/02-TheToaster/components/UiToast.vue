@@ -1,6 +1,8 @@
 <template>
-  <UiIcon class="toast__icon" :icon="toastEl.toastIcon" v-show="toastEl.toastTime"/>
-  <span>{{ toastEl.toastMessage }}</span>
+  <div>
+  <UiIcon class="toast__icon" :icon="toastEl.icon" />
+  <span>{{ toastEl.message }}</span>
+  </div>
 </template>
 
 <script>
@@ -17,8 +19,3 @@
   }
 </script>
 
-<style>
-  .toast__icon {
-    margin-right: 12px;
-  }
-</style>

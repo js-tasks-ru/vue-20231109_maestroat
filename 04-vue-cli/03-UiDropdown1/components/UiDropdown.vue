@@ -1,12 +1,12 @@
 <template>
   <div class="dropdown" >
-    <button type="button" class="dropdown__toggle" :class="optionsIcon() && 'dropdown__toggle_icon'" @click="dropdownOpened ? dropdownOpened = false : dropdownOpened = true" >
-      <UiIcon :icon="modelValue ? dropdownIcon : 'tv'" class="dropdown__icon" />
+    <button type="button" class="dropdown__toggle" :class="{'dropdown__toggle_icon': optionsIcon}" @click="dropdownOpened ? dropdownOpened = false : dropdownOpened = true" >
+      <UiIcon :icon="modelValueIcon" class="dropdown__icon" v-if="modelValueIcon" />
       <span>{{ modelText || title }}</span>
     </button>
 
-    <div class="dropdown__menu" role="listbox" v-show="dropdownOpened" :class="dropdownOpened ? 'dropdown_opened' : ''">
-      <button class="dropdown__item" :class="optionsIcon() && 'dropdown__item_icon'" role="option" type="button" v-for="(el) in options" :key="el.value" @click="handler(el)">
+    <div class="dropdown__menu" role="listbox" v-show="dropdownOpened" :class="{'dropdown_opened': dropdownOpened}">
+      <button class="dropdown__item" :class="{'dropdown__item_icon': optionsIcon}" role="option" type="button" v-for="(el) in options" :key="el.value" @click="handler(el)">
         <UiIcon :icon="el.icon" class="dropdown__icon" v-if="el.icon" />
         <span>{{ el.text }}</span>
       </button>
@@ -32,11 +32,10 @@ export default {
       type: String,
       required: true
     },
-},
+  },
   data() {
     return {
       dropdownOpened: false,
-      dropdownIcon: 'key',
     }
   },
   emits: [
@@ -44,26 +43,29 @@ export default {
   ],
   computed: {
     modelText() {
-      for (let obj of this.options) {
-        if (obj.value === this.modelValue) {return obj.text}
+      const result = this.options.find(({ value }) => value === this.modelValue);
+      return result?.text
+    },
+    optionsIcon() {
+      const even = ({ icon }) => icon;
+      return this.options.some(even);
+    },
+    modelValueIcon() {
+      if (this.modelValue) {
+        const result = this.options.find(({ value }) => value === this.modelValue);
+        return result.icon
       }
-    return undefined
-    }
+      else return ''
+    },
   },
   methods: {
     handler(el) {
       this.$emit('update:modelValue', el.value);
       this.dropdownOpened = false;
-      this.dropdownIcon = el.icon;
-    },
-    optionsIcon() {
-      for (let obj of this.options) {
-        if (obj.icon) return true
-      }
-      return false
     },
   },
-};
+}
+
 </script>
 
 <style scoped>

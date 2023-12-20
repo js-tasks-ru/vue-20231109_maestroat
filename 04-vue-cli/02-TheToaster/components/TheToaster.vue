@@ -12,11 +12,9 @@
 <!--  </div>-->
 
 <template>
-    <ul class="toasts">
-    <li class="toast" v-for="(el, index) in arr" :key="arr[index]" :class="arr[index].toastClass">
-      <UiToast :toastEl="arr[index]" />
-    </li>
-    </ul>
+    <div class="toasts">
+      <UiToast :toastEl="arr[index]" class="toast" v-for="(el, index) in arr" :key="arr[index]" :class="el.class"/>
+    </div>
 </template>
 
 <script>
@@ -33,20 +31,20 @@ export default {
   methods: {
     error(message)  {
       const toast = {
-        toastClass: 'toast_error',
-        toastMessage: message,
-        toastIcon:'alert-circle',
-        toastTime: true
+        class: 'toast_error',
+        message: message,
+        icon:'alert-circle',
+        time: true
       }
       this.arr.push(toast);
       setTimeout(() => {this.arr.shift()}, 5000)
     },
     success(message)  {
       const toast = {
-        toastClass: 'toast_success',
-        toastMessage: message,
-        toastIcon:'check-circle',
-        toastTime: true
+        class: 'toast_success',
+        message: message,
+        icon:'check-circle',
+        time: true
       }
       this.arr.push(toast);
       setTimeout(() => {this.arr.shift()}, 5000)
@@ -92,9 +90,9 @@ export default {
   margin-top: 20px;
 }
 
-/*.toast__icon {*/
-/*  margin-right: 12px;*/
-/*}*/
+.toast :deep(.toast__icon) {
+  margin-right: 12px;
+}
 
 .toast.toast_success {
   color: var(--green);

@@ -18,4 +18,8 @@
     },
   }
 </script>
-
+<style scoped>
+  .toast__icon {
+    margin-right: 12px;
+  }
+</style>

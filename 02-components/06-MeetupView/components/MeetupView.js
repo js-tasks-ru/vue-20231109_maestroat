@@ -17,12 +17,14 @@ export default defineComponent({
     MeetupAgenda,
     MeetupInfo
   },
+
   props: {
     meetup: {
       type: Object,
       required: true,
     },
   },
+
   template: `
     <div>
       <!-- meetup cover-->

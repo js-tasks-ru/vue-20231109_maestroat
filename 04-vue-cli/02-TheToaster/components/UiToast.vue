@@ -1,12 +1,20 @@
 <template>
-  <div class="toast">
-  <UiIcon class="toast__icon" :icon="toast.icon" />
+  <div class="toast" :class="$options.toastClass[toast.type]">
+  <UiIcon class="toast__icon" :icon="$options.toastIcon[toast.type]" />
   <span>{{ toast.message }}</span>
-    <button @click="this.$emit('check', true)" class="toast__button">X</button>
+    <button @click="this.$emit('close')" class="toast__button">X</button>
   </div>
 </template>
 
 <script>
+  const toastClass = {
+    success: 'toast_success',
+    error: 'toast_error'
+  }
+  const toastIcon = {
+    success: 'check-circle',
+    error: 'alert-circle'
+  }
   import UiIcon from './UiIcon.vue';
   export default {
     name: 'UiToast',
@@ -17,7 +25,9 @@
         required: true
       },
     },
-    emits: ['check'],
+    emits: ['close'],
+    toastClass,
+    toastIcon,
   }
 </script>
 <style scoped>

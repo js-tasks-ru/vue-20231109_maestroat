@@ -13,7 +13,7 @@
 
 <template>
     <div class="toasts">
-      <UiToast :toast="arr[index]" v-for="(el, index) in arr" :key="arr[index]" :class="el.class" @click="(e) => closeToast(e)"/>
+      <UiToast :toast="el" v-for="(el, index) in arr" @click="closeToast(index)" />
     </div>
 </template>
 
@@ -29,26 +29,24 @@ export default {
     }
   },
   methods: {
-    error(message)  {
+    error(message, delay)  {
       const toast = {
-        class: 'toast_error',
         message: message,
-        icon:'alert-circle',
+        type: 'error',
       }
       this.arr.push(toast);
-      setTimeout(() => this.arr.shift(), message?.delay || 5000)
+      setTimeout(() => this.arr.shift(), delay || 5000)
     },
-    success(message)  {
+    success(message, delay)  {
       const toast = {
-        class: 'toast_success',
         message: message,
-        icon:'check-circle',
+        type: 'success',
       }
       this.arr.push(toast);
-      setTimeout(() => this.arr.shift(), message?.delay || 5000)
+      setTimeout(() => this.arr.shift(), delay || 5000)
     },
-    closeToast(check) {
-      check && this.arr.shift()
+    closeToast(index) {
+      this.arr.splice(index, 1)
     }
   }
 };

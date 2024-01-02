@@ -1,16 +1,11 @@
 <template>
-  <RouterLink class="tabs__tab" role="tab" :to="linkTo" activeClass="tabs__tab_active"><slot>Tab</slot></RouterLink>
+  <RouterLink class="tabs__tab" role="tab" :to="this.to" activeClass="tabs__tab_active"><slot>Tab</slot></RouterLink>
 </template>
 
 <script>
 export default {
   name: 'UiTabsLink',
   props: ['to'],
-  computed: {
-    linkTo() {
-      return this.to
-    }
-  }
 };
 </script>
 

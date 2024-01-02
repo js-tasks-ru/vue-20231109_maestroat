@@ -46,11 +46,10 @@ const router = createRouter({
 });
   router.beforeEach((to, from) => {
     // console.log(isAuthenticated());
-    // console.log(to);
-    // console.log(from.name);
-    // console.log(to.name);
-    if (!isAuthenticated() && to.name === 'meetups_creat') return { name: 'login', query: { from: '/meetups/create' } }
-    if (!isAuthenticated() && to.name === 'meetups_edit') return { name: 'login', query: { from: to.fullPath } }
-    if (isAuthenticated() && to.name === 'login') return { name: 'index' }
+    // console.log(to.meta.requireGuest);
+    // console.log(to.meta.requireAuth);
+    if (isAuthenticated() && to.meta.requireGuest) return { name: 'index' }
+    if (isAuthenticated() && to.meta.requireAuth) return true
+    if (!isAuthenticated() && to.meta.requireAuth) return { name: 'login', query: { from: to.fullPath } }
   })
 export { router };

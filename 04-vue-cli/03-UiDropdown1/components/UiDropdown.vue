@@ -1,3 +1,4 @@
+
 <template>
   <div class="dropdown" >
     <button type="button" class="dropdown__toggle" :class="{'dropdown__toggle_icon': optionsIcon}" @click="dropdownOpened ? dropdownOpened = false : dropdownOpened = true" >

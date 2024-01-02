@@ -1,16 +1,4 @@
 
-<!--  <div class="toasts">-->
-<!--    <div class="toast toast_success">-->
-<!--      <UiIcon class="toast__icon" icon="check-circle" />-->
-<!--      <span>Success Toast Example</span>-->
-<!--    </div>-->
-
-<!--    <div class="toast toast_error">-->
-<!--      <UiIcon class="toast__icon" icon="alert-circle" />-->
-<!--      <span>Error Toast Example</span>-->
-<!--    </div>-->
-<!--  </div>-->
-
 <template>
     <div class="toasts">
       <UiToast :toast="el" v-for="(el, index) in arr" @click="closeToast(index)" />

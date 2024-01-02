@@ -1,3 +1,4 @@
+
 <template>
   <div class="toast" :class="$options.toastClass[toast.type]">
   <UiIcon class="toast__icon" :icon="$options.toastIcon[toast.type]" />

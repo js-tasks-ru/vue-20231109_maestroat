@@ -38,7 +38,7 @@ export default {
     handleSubmit() {
       // let currentUrl = new URL(window.location.href);
       // let newUrl = currentUrl.searchParams.get('from');
-      // console.log(this.$router);
+      // console.log(this.$route.query);
       let page =this.$route.query.from;
       if (page) this.$router.push(page)
       else this.$router.push({ name: 'index' });

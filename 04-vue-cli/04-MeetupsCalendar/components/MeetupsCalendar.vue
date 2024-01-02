@@ -1,3 +1,4 @@
+
 <template>
   <div class="calendar-view">
     <div class="calendar-view__controls">

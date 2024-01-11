@@ -62,13 +62,12 @@ export default {
     },
   },
   methods: {
-    setImage: async function (event) {
+    async setImage() {
       this.file = this.$refs.file.files[0];
       this.select(this.file);
       this.image = URL.createObjectURL(this.file);
       let uploader = this.uploader;
       if (uploader) {
-        event.preventDefault();
         this.load = true;
         try {
           let f = await uploader(this.file);
@@ -78,8 +77,8 @@ export default {
           this.image = null;
           this.$refs.file.value = null;
         }
-        this.load = false;
-      } else this.load = false;
+      }
+      this.load = false;
     },
     setRemove: function (event) {
       if (this.image) {

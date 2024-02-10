@@ -1,6 +1,6 @@
 <template>
   <main class="mini-messenger">
-    <ul class="messages">
+    <ul class="messages" ref="messages">
       <li v-for="message in messages" :key="message.id" class="message">
         {{ message.text }}
       </li>
@@ -15,6 +15,7 @@
 
 <script>
 let lastId = 0;
+import { ref, nextTick } from 'vue'
 
 export default {
   name: 'MiniMessenger',
@@ -28,12 +29,18 @@ export default {
         { id: lastId++, text: 'Third message' },
         { id: lastId++, text: 'Forth message' },
       ],
+      scrollHeight: 0,
     };
   },
 
   methods: {
-    handleSendSubmit() {
+    async handleSendSubmit() {
       this.send();
+      this.scrollHeight = this.$refs.messages.scrollHeight;
+      await nextTick()
+        // DOM is now updated
+        this.$refs.messages.scrollBy(0,this.scrollHeight);
+        console.log(this.scrollHeight);
     },
 
     send() {

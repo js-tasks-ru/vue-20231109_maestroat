@@ -104,6 +104,7 @@ export default {
   data() {
     return {
       localMeetup: klona(this.meetup),
+      remove: false,
     };
   },
   watch: {
@@ -111,7 +112,7 @@ export default {
       deep: true,
       immediate: true,
       handler() {
-        if (this.localMeetup.agenda.length >= 2)
+        if (this.localMeetup.agenda.length >= 2 && this.remove === false)
           for (let i = 1; i < this.localMeetup.agenda.length; i++) {
             this.localMeetup.agenda[i].startsAt = this.localMeetup.agenda[i - 1].endsAt;
           }
@@ -124,6 +125,7 @@ export default {
       this.localMeetup.agenda.push(createAgendaItem());
     },
     setRemove(index) {
+      this.remove = true;
       this.localMeetup.agenda.splice(index, 1);
     },
     setClick() {

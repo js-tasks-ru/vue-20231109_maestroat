@@ -9,6 +9,7 @@
 import { SensorsDataController } from '../services/SensorsDataController';
 import { SensorsDataStreamingService } from '../services/SensorsDataStreamingService';
 import SensorsDataRow from './SensorsDataRow';
+import { ref, reactive } from 'vue';
 
 export default {
   name: 'SensorsDataView',
@@ -28,9 +29,9 @@ export default {
     // Раз в секунду запрашиваем и выводим новые данные сенсоров
     setInterval(() => {
       this.sensorsDataController.getData();
+      // console.log(this.sensorsDataController.getData())
     }, 1000);
   },
-
   beforeUnmount() {
     this.sensorsDataController.removeDataCallback(this.callback);
     this.sensorsDataController.close();
@@ -42,7 +43,11 @@ export default {
     },
 
     setData(sensors) {
-      this.sensors = sensors;
+      let sensors2 = {};
+      for (let sensor in sensors) {
+        sensors2[sensor] = {'id': sensors[sensor].id, 'label': sensors[sensor].label, 'value': sensors[sensor].value, 'unit': sensors[sensor].unit };
+      }
+      this.sensors = sensors2
     },
   },
 };
